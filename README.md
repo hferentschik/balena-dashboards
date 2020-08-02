@@ -1,21 +1,13 @@
-# balena-dashboards
-Please consider donating to this project!
+# balena-grandpa 
 
-<a href="https://www.buymeacoffee.com/williamwalker" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
-
-> This project is a simple solution for managing multiple digital signage displays, dashboards, and other dynamic statistical data on raspberry-pi (or x86-x64 arch) powered displays, via one central admin panel. This project is intended for use in conjunction with balena.io (see below for link and account setup instructions).
-
-You may be asking,*"What makes this dashboard project better than others?"*
+>  Managing remotely your grandpa's TV enabling him to watch album photos, youtube and initiate telcos (Jitsi meet) without him ever pressing any buttons! 
 
 - Managed through balena.io
 - Multiple URLs/webpages to load
 - Custom timeout values for each URL
-- Support for remote screen control/support/viewing
-- Fast load/runtime due to multi-threaded creation of browser windows
+- Support for remote screen control/support/viewing (NoVNC)
+- Fast load/runtime due to multi-threaded creation of browser windows ( as a side effect, youtube music can play in background as a google photos slideshow is displayed) 
 
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
@@ -27,11 +19,6 @@ Things you need to deploy this code to your device:
 - Flash your SD card ([balenaEtcher](https://www.balena.io/etcher) is recommended) and boot the device
 - Ensure the device shows up in your application dashboard
 - Download the code for this project from GitHub, and push to your application, using the [balena-cli tool](https://www.balena.io/docs/reference/cli/)
-
-```
-git clone https://github.com/willswire/dashboards.git
-balena push *application-name*
-```
 
 ## Configuration
 
@@ -47,6 +34,16 @@ The following `Enviroment Variables` must be set within Application > Device und
 | `TIME_[...]`    | `corresponding time values for each URL`  |
 | `NOVNC_PASSWORD` | `defaultpassword` *[obviously change this to something different]* |
 | `TZ` | `America/New_York` *[obviously change this to your timezone, see [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for your TZ* |
+| | photos configuration |
+|ENV VAR	|Description	Options	Default|
+|GALLERY_URL	|Gallery URL for google photos, dropbox images, or apple photos		|
+|GALLERY_SLIDESHOW_DELAY	|Slideshow delay in milliseconds		10000|
+|GALLERY_IMAGE_STYLE	|Contain shows the entire image on the screen. Cover zooms the image filling the entire screen.	contain, cover	cover|
+|GALLERY_EFFECT	|Transition effects	fade, horizontal, vertical, kenburns, false	fade|
+|CRON_SCHEDULE	|Cron scheduler to reload images to get changes		0 */12 * * *|
+|RESIZE_WIDTH	* |Resize image width or height (larger side) in pixels		1000px|
+|COMPRESS_QUALITY	* |Image compression	0 - 100	90|
+
 
 In order to view the device remotely from within your browser, enable the public device URL within the device summary page.  Then, you can simply click the link and login using the password set above.
 
@@ -55,3 +52,4 @@ In order to view the device remotely from within your browser, enable the public
 - [ElectronJS](https://electronjs.org) - The web framework used
 - [balenaCloud](https://balena.io/) - IoT device management
 - [noVNC](https://github.com/novnc/noVNC) - Used to provide remote viewing/support through public device URL (enable in device settings)
+- [BalenaDash](https://github.com/balenalabs/balena-dash) - Smart photo slideshow (Google, Dropbox, Apple) 
